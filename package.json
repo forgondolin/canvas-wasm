@@ -1,0 +1,10 @@
+{
+  "name": "canvas-proj",
+  "version": "1.0.0",
+  "main": "server.js",
+  "author": "Kaleb ",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
