@@ -23,14 +23,31 @@
     const canvas =  document.getElementById('canvas')
     const context = canvas.getContext('2d')
 
-    const render = () => {
+    const render = (dataLength, circleStructSize) => {
 
-    let circles = _getCircles()
-        
+    console.log('tamanho dos dados:', dataLength)
+    let circles = new Int32Array( Module.buffer, _getCircles(canvas.width, canvas.height), dataLength )
+    console.log(circles)
+
+    //limpando
+    context.clearRect(0,0,canvas.width, canvas.height)
+    
+        for(let i=0;i<circles.dataLength;i+=circleStructSize)
+        {
+            let circle = circles.slice(i, i+circleStructSize)
+            
+            console.log(circle)
+        }
     context.beginPath()
-    context.arc(300, 300, 150, 0, 2*Math.PI, false)
-    context.fillStyle = 'dodgerblue'
+    context.arc(circle[0], circle[1], circle[2], 0, 2*Math.PI, false)
+    context.fillStyle = `rgba(${circle[3]},${circle[4]},${circle[5]},0.75)`
     context.fill()
+    
+    console.log("renderizado")
+
+    window.requestAnimationFrame( () => {
+        render(dataLength, circleStructSize)
+    })
     }
 
 </script>
